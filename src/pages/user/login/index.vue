@@ -2,10 +2,15 @@
   <view class="wrap">
     <view class="top"></view>
     <view class="content">
-      <view class="title">欢迎登录</view>
-      <input class="u-border-bottom" type="number" v-model="username" placeholder="请输入账号" />
-      <input class="u-border-bottom u-p-t-30 u-m-b-30" type="password" v-model="password" placeholder="请输入密码" />
-      <button @tap="submit" :style="[inputStyle]" class="getCaptcha">登录</button>
+      <u-form :model="formBean" ref="form" label-width="0">
+        <u-form-item prop="username">
+          <u-input v-model="formBean.username" placeholder="请输入账号" />
+        </u-form-item>
+        <u-form-item prop="password">
+          <u-input type="password" v-model="formBean.password" placeholder="请输入密码" :password-icon="true" />
+        </u-form-item>
+      </u-form>
+      <button :style="[inputStyle]" class="getCaptcha u-margin-top-26" @tap="handleLogin">登录</button>
       <view class="alternative">
         <view class="flex"></view>
         <view class="issue">遇到问题</view>
@@ -22,6 +27,7 @@
           QQ
         </view>
       </view>-->
+    <u-toast ref="toast" />
   </view>
 </template>
 
@@ -29,27 +35,57 @@
 export default {
   data() {
     return {
-      username: "",
-      password: "",
+      formBean: {
+        username: "",
+        password: "",
+      },
+      rules: {
+        username: [
+          {
+            required: true,
+            message: "请输入用户名",
+            trigger: ["blur", "change"],
+          },
+        ],
+        password: [
+          {
+            required: true,
+            min: 6,
+            max: 16,
+            message: "请输入密码, 6-16位",
+            trigger: ["blur", "change"],
+          },
+        ],
+      },
     };
+  },
+  onReady() {
+    this.$refs.form.setRules(this.rules);
   },
   computed: {
     inputStyle() {
       let style = {};
-      if (this.username && this.password) {
+      let { username, password } = this.formBean;
+      if (username && password && password.length >= 6) {
         style.color = "#fff";
-        style.backgroundColor = this.$u.color["warning"];
+        style.backgroundColor = this.$u.color["primary"];
       }
       return style;
     },
   },
   methods: {
-    submit() {
-      if (this.$u.test.mobile(this.tel)) {
-        this.$u.route({
-          url: "pages/template/login/code",
-        });
-      }
+    handleLogin() {
+      this.$refs.form.validate((v) => {
+        if (v) {
+          this.$refs.toast.show({
+            title: "登录成功",
+            position: "top",
+            isTab: true,
+            type: "success",
+            url: "/pages/user/index/index",
+          });
+        }
+      });
     },
   },
 };
@@ -79,7 +115,7 @@ export default {
       margin-top: 8rpx;
     }
     .getCaptcha {
-      background-color: rgb(253, 243, 208);
+      background-color: #a0cfff;
       color: $u-tips-color;
       border: none;
       font-size: 30rpx;
