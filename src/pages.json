@@ -18,13 +18,13 @@
       }
     },
     {
-      "path": "pages/uCenter/index/index",
+      "path": "pages/user/index/index",
       "style": {
         "navigationBarTitleText": "个人中心"
       }
     },
     {
-      "path": "pages/uCenter/login/index",
+      "path": "pages/user/login/index",
       "style": {
         "navigationBarTitleText": "登录"
       }
@@ -55,7 +55,7 @@
         "text": "通讯录"
       },
       {
-        "pagePath": "pages/uCenter/index/index",
+        "pagePath": "pages/user/index/index",
         "iconPath": "static/tabList/my.png",
         "selectedIconPath": "static/tabList/my-active.png",
         "text": "我的"

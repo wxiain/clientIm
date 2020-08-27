@@ -52,7 +52,7 @@ export default {
   methods: {
     handleLogin() {
       wx.navigateTo({
-        url: "/pages/uCenter/login/index",
+        url: "/pages/user/login/index",
       });
     },
     handleAvatar() {
