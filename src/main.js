@@ -1,6 +1,7 @@
 import Vue from "vue";
 import App from "./App";
 import uView from "uview-ui";
+import "./App.scss";
 
 Vue.config.productionTip = false;
 

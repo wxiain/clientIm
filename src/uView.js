@@ -157,7 +157,7 @@ Vue.component("uSubsection", uSubsection);
 Vue.component("uSwipeAction", uSwipeAction);
 Vue.component("uSwiper", uSwiper);
 Vue.component("uSwitch", uSwitch);
-Vue.component("uTabBar", uTabBar);
+Vue.component("uTabbar", uTabBar);
 Vue.component("uTable", uTable);
 Vue.component("uTabs", uTabs);
 Vue.component("uTabsSwiper", uTabsSwiper);

@@ -93,33 +93,33 @@ export default {
 
 <style lang="scss" scoped>
 .wrap {
-  font-size: 28rpx;
+  font-size: rpx(28);
   .content {
-    width: 600rpx;
-    margin: 80rpx auto 0;
+    width: rpx(600);
+    margin: rpx(80) auto 0;
 
     .title {
       text-align: left;
-      font-size: 60rpx;
+      font-size: rpx(60);
       font-weight: 500;
-      margin-bottom: 100rpx;
+      margin-bottom: rpx(100);
     }
     input {
       text-align: left;
-      margin-bottom: 10rpx;
-      padding-bottom: 6rpx;
+      margin-bottom: rpx(10);
+      padding-bottom: rpx(6);
     }
     .tips {
       color: $u-type-info;
-      margin-bottom: 60rpx;
-      margin-top: 8rpx;
+      margin-bottom: rpx(60);
+      margin-top: rpx(8);
     }
     .getCaptcha {
       background-color: #a0cfff;
       color: $u-tips-color;
       border: none;
-      font-size: 30rpx;
-      padding: 12rpx 0;
+      font-size: rpx(30);
+      padding: rpx(12) 0;
 
       &::after {
         border: none;
@@ -129,32 +129,7 @@ export default {
       color: $u-tips-color;
       display: flex;
       justify-content: space-between;
-      margin-top: 30rpx;
-    }
-  }
-  .buttom {
-    .loginType {
-      display: flex;
-      padding: 350rpx 150rpx 150rpx 150rpx;
-      justify-content: space-between;
-
-      .item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: $u-content-color;
-        font-size: 28rpx;
-      }
-    }
-
-    .hint {
-      padding: 20rpx 40rpx;
-      font-size: 20rpx;
-      color: $u-tips-color;
-
-      .link {
-        color: $u-type-warning;
-      }
+      margin-top: rpx(30);
     }
   }
 }
