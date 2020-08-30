@@ -13,7 +13,7 @@
       <button :style="[inputStyle]" class="getCaptcha u-margin-top-26" @tap="handleLogin">登录</button>
       <view class="alternative">
         <view class="flex"></view>
-        <view class="issue">遇到问题</view>
+        <view class="issue">还没有账号?去注册</view>
       </view>
     </view>
     <!--<view class="buttom">
