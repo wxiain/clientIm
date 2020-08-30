@@ -25,7 +25,7 @@
 
     <view class="u-m-t-20">
       <u-cell-group>
-        <u-cell-item icon="star" title="收藏"></u-cell-item>
+        <u-cell-item icon="star" title="收藏" :icon-size="44" :title-style="{ fontSize: '34rpx' }"></u-cell-item>
         <!--<u-cell-item icon="photo" title="相册"></u-cell-item>-->
         <!--<u-cell-item icon="coupon" title="卡券"></u-cell-item>-->
         <!--<u-cell-item icon="heart" title="关注"></u-cell-item>-->
@@ -34,7 +34,13 @@
 
     <view class="u-m-t-20">
       <u-cell-group>
-        <u-cell-item icon="setting" title="设置" @tap="handleLogin"></u-cell-item>
+        <u-cell-item
+          icon="setting"
+          title="设置"
+          :icon-size="44"
+          :title-style="{ fontSize: '34' }"
+          @tap="handleLogin"
+        ></u-cell-item>
       </u-cell-group>
     </view>
   </view>
@@ -52,7 +58,7 @@ export default {
   methods: {
     handleLogin() {
       wx.navigateTo({
-        url: "/pages/user/login/index",
+        url: "/pages/user/settings/index",
       });
     },
     handleAvatar() {
@@ -69,7 +75,7 @@ export default {
 
 <style lang="scss">
 page {
-  background-color: #ededed;
+  background-color: $uni-bg-color;
 }
 
 .camera {
