@@ -9,6 +9,18 @@
       "path": "pages/home/index"
     },
     {
+      "path": "pages/user/settings/index",
+      "style": {
+        "navigationBarTitleText": "设置"
+      }
+    },
+    {
+      "path": "pages/user/register/index",
+      "style": {
+        "navigationBarTitleText": "注册"
+      }
+    },
+    {
       "path": "pages/messages/index/index",
       "style": {
         "navigationBarTitleText": "消息"
