@@ -9,25 +9,31 @@
         <u-form-item prop="password">
           <u-input type="password" v-model="formBean.password" placeholder="请输入密码" :password-icon="true" />
         </u-form-item>
+        <u-form-item prop="confirmPassword">
+          <u-input
+            type="password"
+            v-model="formBean.confirmPassword"
+            placeholder="请再次输入密码"
+            :password-icon="true"
+          />
+        </u-form-item>
       </u-form>
-      <button :style="[inputStyle]" class="getCaptcha u-margin-top-26" @tap="handleLogin">登录</button>
+      <button :style="[inputStyle]" class="getCaptcha u-margin-top-26" @tap="handleRegister">注册</button>
       <view class="alternative">
         <view class="flex"></view>
-        <view class="issue" @tap="handleRegister">还没有账号?去注册</view>
+        <view class="issue" @tap="handleLogin">已有账号?去登录</view>
       </view>
     </view>
-    <!--<view class="buttom">
-      <view class="loginType">
-        <view class="wechat item">
-          <view class="icon"><u-icon size="70" name="weixin-fill" color="rgb(83,194,64)"></u-icon></view>
-          微信
-        </view>
-        <view class="QQ item">
-          <view class="icon"><u-icon size="70" name="qq-fill" color="rgb(17,183,233)"></u-icon></view>
-          QQ
-        </view>
-      </view>-->
-    <u-toast ref="toast" />
+    <!--<u-toast ref="toast" />-->
+    <u-modal
+      v-model="show"
+      @confirm="handleConfirm"
+      ref="uModal"
+      :mask-close-able="true"
+      :show-cancel-button="true"
+      :show-title="false"
+      content="注册成功, 是否去登陆"
+    ></u-modal>
   </view>
 </template>
 
@@ -38,7 +44,9 @@ export default {
       formBean: {
         username: "",
         password: "",
+        confirmPassword: "",
       },
+      show: false,
       rules: {
         username: [
           {
@@ -56,6 +64,21 @@ export default {
             trigger: ["blur", "change"],
           },
         ],
+        confirmPassword: [
+          {
+            required: true,
+            trigger: ["blur", "change"],
+            validator: (rules, value, cb) => {
+              if (!this.formBean.password) {
+                cb(new Error("请先输入密码"));
+              } else if (value !== this.formBean.password) {
+                cb(new Error("两次密码输入不一致"));
+              } else {
+                cb();
+              }
+            },
+          },
+        ],
       },
     };
   },
@@ -65,8 +88,8 @@ export default {
   computed: {
     inputStyle() {
       let style = {};
-      let { username, password } = this.formBean;
-      if (username && password && password.length >= 6) {
+      let { username, password, confirmPassword } = this.formBean;
+      if (username && password && password.length >= 6 && password === confirmPassword) {
         style.color = "#fff";
         style.backgroundColor = this.$u.color["primary"];
       }
@@ -74,23 +97,20 @@ export default {
     },
   },
   methods: {
-    handleLogin() {
+    handleRegister() {
       this.$refs.form.validate((v) => {
         if (v) {
-          this.$refs.toast.show({
-            title: "登录成功",
-            position: "top",
-            isTab: true,
-            type: "success",
-            url: "/pages/user/index/index",
-          });
+          this.show = true;
         }
       });
     },
-    handleRegister() {
-      uni.navigateTo({
-        url: "/pages/user/register/index",
+    handleLogin(type = "navigateTo") {
+      uni[type]({
+        url: "/pages/user/login/index",
       });
+    },
+    handleConfirm() {
+      this.handleLogin("redirectTo");
     },
   },
 };

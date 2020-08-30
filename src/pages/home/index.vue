@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="w100vh w100">
     <view v-if="isLogin">
       <view class="u-page">
         <!-- 所有内容的容器 -->
@@ -11,8 +11,11 @@
       </view>
       <u-tabbar v-model="current" :list="tabBar" active-color="#2979ff"></u-tabbar>
     </view>
-    <view v-else>
-      还没有登录
+    <view v-else class="w100 h100 flex justify-center align-center">
+      <view class="w100">
+        <u-button style="width: 70%;" class="u-m-b-20" type="success" @tap="handleRegister">注册</u-button>
+        <u-button style="width: 70%;" type="primary" @tap="handleLogin">登录</u-button>
+      </view>
     </view>
   </view>
 </template>
@@ -25,7 +28,7 @@ export default {
     return {
       key: 222,
       current: 0,
-      isLogin: true,
+      isLogin: false,
       tabBar: [
         {
           // pagePath: "/pages/messages/index/index",
@@ -64,6 +67,16 @@ export default {
     setTitle() {
       uni.setNavigationBarTitle({
         title: this.titleType[this.current],
+      });
+    },
+    handleRegister() {
+      uni.navigateTo({
+        url: "/pages/user/register/index",
+      });
+    },
+    handleLogin() {
+      uni.navigateTo({
+        url: "/pages/user/login/index",
       });
     },
   },
