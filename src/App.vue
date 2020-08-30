@@ -16,4 +16,5 @@ export default {
 <style lang="scss">
 /*每个页面公共css */
 @import "../node_modules/uview-ui/index.scss";
+@import "./App";
 </style>
