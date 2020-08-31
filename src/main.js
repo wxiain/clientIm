@@ -2,7 +2,11 @@ import Vue from "vue";
 import App from "./App";
 import uView from "uview-ui";
 
+import request from "@/util/request";
+
 Vue.config.productionTip = false;
+
+Vue.prototype.$http = request;
 
 App.mpType = "app";
 
