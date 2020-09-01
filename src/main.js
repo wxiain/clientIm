@@ -1,12 +1,11 @@
 import Vue from "vue";
 import App from "./App";
 import uView from "uview-ui";
-
-import request from "@/util/request";
+import store from "./store";
 
 Vue.config.productionTip = false;
 
-Vue.prototype.$http = request;
+Vue.prototype.$store = store;
 
 App.mpType = "app";
 
