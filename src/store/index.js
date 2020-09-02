@@ -10,6 +10,7 @@ export default new Vuex.Store({
     userInfo: {},
     token: "",
     isLogin: false,
+    current: 0,
   },
   actions: {
     login({ commit }, params) {
@@ -28,7 +29,8 @@ export default new Vuex.Store({
     },
     getUserInfo({ commit }) {
       return new Promise((resolve, reject) => {
-        http("user/info")
+        uni.showLoading({ title: "加载中", mask: true });
+        http("user/info", {}, false)
           .then((res) => {
             commit("setUserInfo", res.data);
             commit("setToken", res.token);
@@ -37,6 +39,9 @@ export default new Vuex.Store({
           })
           .catch((err) => {
             reject(err);
+          })
+          .finally(() => {
+            uni.hideLoading();
           });
       });
     },
@@ -51,6 +56,9 @@ export default new Vuex.Store({
     },
     setIsLogin(state, boolean) {
       state.isLogin = boolean;
+    },
+    setCurrent(state, index) {
+      state.current = index;
     },
   },
 });
