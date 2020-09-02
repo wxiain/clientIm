@@ -28,17 +28,21 @@
         </view>
       </view>-->
     <u-toast ref="toast" />
+    <!--<u-mask :show="loading"></u-mask>
+    <u-loading size="40" color="primary" :show="loading"></u-loading>-->
   </view>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       formBean: {
-        username: "",
-        password: "",
+        username: "12",
+        password: "111111",
       },
+      loading: true,
       rules: {
         username: [
           {
@@ -74,16 +78,23 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["login"]),
     handleLogin() {
       this.$refs.form.validate((v) => {
         if (v) {
-          this.$refs.toast.show({
-            title: "登录成功",
-            position: "top",
-            isTab: true,
-            type: "success",
-            url: "/pages/user/index/index",
-          });
+          uni.showLoading({ title: "登录中...", mask: true });
+          this.login(this.formBean)
+            .then(() => {
+              this.$refs.toast.show({
+                title: "登录成功",
+                position: "top",
+                type: "success",
+                url: "/pages/home/index",
+              });
+            })
+            .finally(() => {
+              uni.hideLoading();
+            });
         }
       });
     },
