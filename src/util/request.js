@@ -1,8 +1,16 @@
 let token = uni.getStorageSync("apiToken") || "";
-
-export default function (url, data, method = "get") {
+/**
+ * 全局请求封装
+ * @param url
+ * @param data
+ * @param request  在没有token的时候是否需要继续发送接口, 默认true
+ * @param method 请求方法
+ * @returns {Promise<unknown>}
+ */
+export default function (url, data, request = true, method = "get") {
   method = method.toUpperCase();
   return new Promise((res, rej) => {
+    if (!token && !request) return rej({ data: "用户未登录", statueCode: 401 });
     uni
       .request({
         url: url,
