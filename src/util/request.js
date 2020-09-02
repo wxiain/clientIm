@@ -1,4 +1,4 @@
-let token = uni.getStorageSync("token") || "";
+let token = uni.getStorageSync("apiToken") || "";
 
 export default function (url, data, method = "get") {
   method = method.toUpperCase();
