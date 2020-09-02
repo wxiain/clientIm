@@ -1,6 +1,9 @@
 <script>
+import { mapActions } from "vuex";
 export default {
   onLaunch: function () {
+    // 全局只触发一次
+    this.getUserInfo();
     // console.log("App Launch");
     // https://cdn.npm.taobao.org/dist/node-sass/v4.14.1/win32-x64-83_binding.node
   },
@@ -9,6 +12,9 @@ export default {
   },
   onHide: function () {
     // console.log("App Hide");
+  },
+  methods: {
+    ...mapActions(["getUserInfo"]),
   },
 };
 </script>
