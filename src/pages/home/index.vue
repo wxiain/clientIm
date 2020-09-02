@@ -9,7 +9,7 @@
           <user v-else></user>
         </keep-alive>
       </view>
-      <u-tabbar v-model="current" :list="tabBar" active-color="#2979ff"></u-tabbar>
+      <u-tabbar :value="current" @input="handlerCurrent" :list="tabBar" active-color="#2979ff"></u-tabbar>
     </view>
     <view v-else class="w100 h100 flex justify-center align-center">
       <view class="w100">
@@ -23,12 +23,11 @@
 import message from "@/pages/messages/index/index";
 import user from "@/pages/user/index/index";
 import contact from "@/pages/contact/index/index";
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
       key: 222,
-      current: 0,
-      isLogin: false,
       tabBar: [
         {
           // pagePath: "/pages/messages/index/index",
@@ -58,15 +57,13 @@ export default {
       },
     };
   },
-  watch: {
-    current() {
-      this.setTitle();
-    },
-  },
+  onLoad(opt) {},
+  watch: {},
   methods: {
+    ...mapMutations(["setCurrent"]),
     setTitle() {
       uni.setNavigationBarTitle({
-        title: this.titleType[this.current],
+        title: this.isLogin ? this.titleType[this.current] : "首页",
       });
     },
     handleRegister() {
@@ -79,6 +76,13 @@ export default {
         url: "/pages/user/login/index",
       });
     },
+    handlerCurrent(index) {
+      this.setCurrent(index);
+      this.setTitle();
+    },
+  },
+  computed: {
+    ...mapState(["isLogin", "current"]),
   },
   components: {
     message,
