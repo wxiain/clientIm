@@ -32,12 +32,13 @@
       :mask-close-able="true"
       :show-cancel-button="true"
       :show-title="false"
-      content="注册成功, 是否去登陆"
+      :content="content"
     ></u-modal>
   </view>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -45,7 +46,9 @@ export default {
         username: "",
         password: "",
         confirmPassword: "",
+        type: "login",
       },
+      content: "",
       show: false,
       rules: {
         username: [
@@ -80,6 +83,7 @@ export default {
           },
         ],
       },
+      status: true,
     };
   },
   onReady() {
@@ -97,10 +101,22 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["register"]),
     handleRegister() {
       this.$refs.form.validate((v) => {
         if (v) {
-          this.show = true;
+          this.register(this.formBean)
+            .then((res) => {
+              this.status = true;
+              this.content = res.message + ", 将返回首页";
+            })
+            .catch((err) => {
+              this.status = false;
+              this.content = err.message;
+            })
+            .finally(() => {
+              this.show = true;
+            });
         }
       });
     },
@@ -110,7 +126,9 @@ export default {
       });
     },
     handleConfirm() {
-      this.handleLogin("redirectTo");
+      if (this.status) {
+        uni.navigateBack();
+      }
     },
   },
 };
