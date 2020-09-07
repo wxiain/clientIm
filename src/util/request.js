@@ -10,7 +10,9 @@ let token = uni.getStorageSync("apiToken") || "";
 export default function (url, data, request = true, method = "get") {
   method = method.toUpperCase();
   return new Promise((res, rej) => {
-    if (!token && !request) return rej({ data: "用户未登录", statueCode: 401 });
+    if (!token && !request) {
+      return rej({ data: "用户未登录", statueCode: 401 });
+    }
     uni
       .request({
         url: url,
@@ -26,15 +28,24 @@ export default function (url, data, request = true, method = "get") {
           return rej(new Error("出错了"));
         }
         let { statusCode } = data;
+        let { message } = data.data;
         switch (statusCode) {
           case 404:
             rej(new Error("404"));
             break;
           case 401:
-            rej(new Error("auth失败"));
-            uni.redirectTo({
-              url: "/pages/user/login/index?type=auth",
+            uni.showToast({
+              title: message,
+              icon: "none",
             });
+            rej(new Error("auth失败"));
+            let pages = getCurrentPages();
+            let currentPages = pages[pages.length - 1].route;
+            if ("pages/user/login/index" !== currentPages) {
+              uni.navigateTo({
+                url: "/pages/user/login/index?type=auth",
+              });
+            }
             break;
           case 403:
             rej(data.data);
@@ -47,6 +58,10 @@ export default function (url, data, request = true, method = "get") {
             rej(data.data);
             break;
           case 500:
+            uni.showToast({
+              title: message,
+              icon: "none",
+            });
             rej(new Error("500"));
             break;
           case 200:
