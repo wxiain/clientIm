@@ -127,7 +127,9 @@ export default {
     },
     handleConfirm() {
       if (this.status) {
-        uni.navigateBack();
+        uni.redirectTo({
+          url: "/pages/home/index",
+        });
       }
     },
   },
