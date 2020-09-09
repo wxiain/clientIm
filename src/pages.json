@@ -39,6 +39,12 @@
       }
     },
     {
+      "path": "pages/user/userData/index",
+      "style": {
+        "navigationBarTitleText": "修改资料"
+      }
+    },
+    {
       "path": "pages/user/login/index",
       "style": {
         "navigationBarTitleText": "登录"
