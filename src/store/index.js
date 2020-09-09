@@ -1,11 +1,14 @@
 import Vuex from "vuex";
 import Vue from "vue";
 import http from "@/util/request";
+import user from "./modules/user";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: {},
+  modules: {
+    user,
+  },
   state: {
     userInfo: {},
     token: "",
