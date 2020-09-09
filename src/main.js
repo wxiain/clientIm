@@ -3,9 +3,12 @@ import App from "./App";
 import uView from "uview-ui";
 import store from "./store";
 
+import methods from "@/util/methods";
+
 Vue.config.productionTip = false;
 
 Vue.prototype.$store = store;
+Vue.prototype.$methods = methods;
 
 App.mpType = "app";
 
