@@ -58,10 +58,10 @@ export default function (url, data, request = true, method = "get") {
             rej(data.data);
             break;
           case 500:
-            uni.showToast({
+            /*uni.showToast({
               title: message,
               icon: "none",
-            });
+            });*/
             rej(new Error("500"));
             break;
           case 200:
