@@ -7,20 +7,22 @@
         </view>
       </view>
     </u-navbar>-->
-    <view class="u-flex user-box u-p-l-30 u-p-r-20 u-p-b-30 u-p-t-30" @tap="handleData">
+    <view class="u-flex u-col-bottom user-box u-p-l-30 u-p-r-20 u-p-b-30 u-p-t-30" @tap="handleData">
       <view class="u-m-r-10" @tap.stop="handleAvatar">
-        <u-avatar :src="pic" size="140"></u-avatar>
+        <u-avatar :src="pic" size="120"></u-avatar>
       </view>
       <view class="u-flex-1">
-        <view class="u-font-18 u-p-b-20">晚霞</view>
-        <view class="u-font-14 u-tips-color">账号:12000000000</view>
+        <view class="u-font-18 u-p-b-10">{{ userInfo.nickname || "点击设置昵称" }}</view>
+        <view class="u-font-14 u-tips-color u-flex u-p-b-15">
+          <view class="u-flex-1">用户名:{{ userInfo.username }}</view>
+          <view class="u-m-l-10">
+            <u-icon name="arrow-right" color="#969799" size="28"></u-icon>
+          </view>
+        </view>
       </view>
       <!--<view class="u-m-l-10 u-p-10">
         <u-icon name="scan" color="#969799" size="28"></u-icon>
       </view>-->
-      <view class="u-m-l-10 u-p-10">
-        <u-icon name="arrow-right" color="#969799" size="28"></u-icon>
-      </view>
     </view>
 
     <view class="u-m-t-20">
@@ -47,6 +49,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -66,9 +69,14 @@ export default {
       console.log(2);
     },
     handleData() {
-      console.log(3);
       // 修改资料
+      uni.navigateTo({
+        url: "/pages/user/userData/index",
+      });
     },
+  },
+  computed: {
+    ...mapState(["userInfo"]),
   },
 };
 </script>
