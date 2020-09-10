@@ -15,7 +15,7 @@ export default function (url, data, request = true, method = "get") {
     }
     uni
       .request({
-        url: url,
+        url: process.env.VUE_APP_BASE_URL + url,
         method,
         data,
         header: {

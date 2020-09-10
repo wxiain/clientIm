@@ -3,7 +3,7 @@ export default {
   namespaced: true,
   actions: {
     changeUserInfo({ commit }, data) {
-      return http("user/set", data, false, "put");
+      return http("/user/set", data, false, "put");
     },
   },
 };

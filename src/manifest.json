@@ -65,5 +65,16 @@
     },
     "mp-qq" : {
         "usingComponents" : true
+    },
+    "h5" : {
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        },
+        "router" : {
+            "base" : "/",
+            "mode" : "history"
+        }
     }
 }

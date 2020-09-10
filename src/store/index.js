@@ -18,7 +18,7 @@ export default new Vuex.Store({
   actions: {
     login({ commit }, params) {
       return new Promise((resolve, reject) => {
-        http("user/login", params, true, "post")
+        http("/user/login", params, true, "post")
           .then((res) => {
             commit("setUserInfo", res.data);
             commit("setToken", res.token);
@@ -33,7 +33,7 @@ export default new Vuex.Store({
     getUserInfo({ commit }) {
       return new Promise((resolve, reject) => {
         uni.showLoading({ title: "加载中", mask: true });
-        http("user/info", {}, false)
+        http("/user/info", {}, false)
           .then((res) => {
             commit("setUserInfo", res.data);
             commit("setToken", res.token);
@@ -51,7 +51,7 @@ export default new Vuex.Store({
     register({ commit }, params) {
       return new Promise((resolve, reject) => {
         uni.showLoading({ title: "加载中", mask: true });
-        http("user/register", params, true, "post")
+        http("/user/register", params, true, "post")
           .then((res) => {
             commit("setUserInfo", res.data);
             commit("setToken", res.token);
