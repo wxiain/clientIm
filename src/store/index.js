@@ -66,6 +66,10 @@ export default new Vuex.Store({
           });
       });
     },
+    logout({ commit }, func) {
+      commit("logout");
+      func && func();
+    },
   },
   mutations: {
     setUserInfo(state, data) {
@@ -73,13 +77,19 @@ export default new Vuex.Store({
     },
     setToken(state, token) {
       state.token = token;
-      uni.setStorage({ key: "apiToken", data: token });
+      uni.setStorage({ key: process.env.VUE_APP_TOKEN_KEY, data: token });
     },
     setIsLogin(state, boolean) {
       state.isLogin = boolean;
     },
     setCurrent(state, index) {
       state.current = index;
+    },
+    logout(state) {
+      state.token = "";
+      uni.removeStorage({ key: process.env.VUE_APP_TOKEN_KEY });
+      state.userInfo = {};
+      state.isLogin = false;
     },
   },
 });

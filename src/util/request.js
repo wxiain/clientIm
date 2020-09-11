@@ -1,4 +1,4 @@
-let token = uni.getStorageSync("apiToken") || "";
+let token = "";
 /**
  * 全局请求封装
  * @param url
@@ -8,10 +8,11 @@ let token = uni.getStorageSync("apiToken") || "";
  * @returns {Promise<unknown>}
  */
 export default function (url, data, request = true, method = "get") {
+  token = token || uni.getStorageSync(process.env.VUE_APP_TOKEN_KEY) || "";
   method = method.toUpperCase();
   return new Promise((res, rej) => {
     if (!token && !request) {
-      return rej({ data: "用户未登录", statueCode: 401 });
+      return rej({ data: "用户未登录", statusCode: 401 });
     }
     uni
       .request({

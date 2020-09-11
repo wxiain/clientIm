@@ -3,7 +3,13 @@ import { mapActions } from "vuex";
 export default {
   onLaunch: function () {
     // 全局只触发一次
-    this.getUserInfo();
+    this.getUserInfo().catch((err) => {
+      if (err.statusCode === 401) {
+        uni.reLaunch({
+          url: "/pages/home/index",
+        });
+      }
+    });
     // console.log("App Launch");
     // https://cdn.npm.taobao.org/dist/node-sass/v4.14.1/win32-x64-83_binding.node
   },
