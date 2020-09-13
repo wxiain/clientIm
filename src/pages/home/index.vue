@@ -3,11 +3,9 @@
     <view v-if="isLogin">
       <view class="u-page">
         <!-- 所有内容的容器 -->
-        <keep-alive>
-          <message v-if="current === 0"></message>
-          <contact v-else-if="current === 1"></contact>
-          <user v-else></user>
-        </keep-alive>
+        <message v-if="current === 0"></message>
+        <contact v-else-if="current === 1"></contact>
+        <user v-else></user>
       </view>
       <u-tabbar :value="current" @input="handlerCurrent" :list="tabBar" active-color="#2979ff"></u-tabbar>
     </view>
@@ -23,7 +21,7 @@
 import message from "@/pages/messages/index/index";
 import user from "@/pages/user/index/index";
 import contact from "@/pages/contact/index/index";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -60,7 +58,8 @@ export default {
   onLoad(opt) {},
   watch: {},
   methods: {
-    ...mapMutations(["setCurrent"]),
+    ...mapMutations(["setCurrent", "removeToken"]),
+    ...mapActions(["getUserInfo"]),
     setTitle() {
       uni.setNavigationBarTitle({
         title: this.isLogin ? this.titleType[this.current] : "首页",

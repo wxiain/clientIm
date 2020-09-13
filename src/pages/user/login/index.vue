@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -79,12 +79,14 @@ export default {
   },
   methods: {
     ...mapActions(["login"]),
+    ...mapMutations(["setCurrent"]),
     handleLogin() {
       this.$refs.form.validate((v) => {
         if (v) {
           uni.showLoading({ title: "登录中...", mask: true });
           this.login(this.formBean)
             .then(() => {
+              this.setCurrent(0);
               this.$refs.toast.show({
                 title: "登录成功",
                 position: "top",

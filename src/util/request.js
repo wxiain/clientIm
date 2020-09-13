@@ -1,4 +1,13 @@
 let token = "";
+function goLogin() {
+  let pages = getCurrentPages();
+  let currentPages = pages[pages.length - 1].route;
+  if ("pages/user/login/index" !== currentPages) {
+    uni.navigateTo({
+      url: "/pages/user/login/index?type=auth",
+    });
+  }
+}
 /**
  * 全局请求封装
  * @param url
@@ -12,7 +21,8 @@ export default function (url, data, request = true, method = "get") {
   method = method.toUpperCase();
   return new Promise((res, rej) => {
     if (!token && !request) {
-      return rej({ data: "用户未登录", statusCode: 401 });
+      goLogin();
+      return rej({ data: "用户未登录", statueCode: 401 });
     }
     uni
       .request({
@@ -40,13 +50,7 @@ export default function (url, data, request = true, method = "get") {
               icon: "none",
             });
             rej(new Error("auth失败"));
-            let pages = getCurrentPages();
-            let currentPages = pages[pages.length - 1].route;
-            if ("pages/user/login/index" !== currentPages) {
-              uni.navigateTo({
-                url: "/pages/user/login/index?type=auth",
-              });
-            }
+            goLogin();
             break;
           case 403:
             rej(data.data);

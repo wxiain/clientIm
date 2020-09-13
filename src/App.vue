@@ -1,14 +1,10 @@
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   onLaunch: function () {
     // 全局只触发一次
     this.getUserInfo().catch((err) => {
-      if (err.statusCode === 401) {
-        uni.reLaunch({
-          url: "/pages/home/index",
-        });
-      }
+      this.removeToken();
     });
     // console.log("App Launch");
     // https://cdn.npm.taobao.org/dist/node-sass/v4.14.1/win32-x64-83_binding.node
@@ -21,6 +17,7 @@ export default {
   },
   methods: {
     ...mapActions(["getUserInfo"]),
+    ...mapMutations(["removeToken"]),
   },
 };
 </script>

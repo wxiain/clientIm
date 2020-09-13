@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="page">
     <!--<u-navbar :is-back="false" title="　" :border-bottom="false">
       <view class="u-flex u-row-right" style="width: 100%;">
         <view class="camera u-flex u-row-center">
@@ -82,10 +82,6 @@ export default {
 </script>
 
 <style lang="scss">
-page {
-  background-color: $uni-bg-color;
-}
-
 .camera {
   width: 54px;
   height: 44px;

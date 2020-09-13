@@ -68,6 +68,7 @@ export default new Vuex.Store({
     },
     logout({ commit }, func) {
       commit("logout");
+      commit("removeToken");
       func && func();
     },
   },
@@ -85,9 +86,11 @@ export default new Vuex.Store({
     setCurrent(state, index) {
       state.current = index;
     },
-    logout(state) {
+    removeToken(state) {
       state.token = "";
       uni.removeStorage({ key: process.env.VUE_APP_TOKEN_KEY });
+    },
+    logout(state) {
       state.userInfo = {};
       state.isLogin = false;
     },

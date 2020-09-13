@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="page">
     <view class="u-m-t-20">
       <u-cell-group class="u-m-b-20">
         <u-cell-item title="聊天" :center="true" :title-style="cellStyle"></u-cell-item>
@@ -83,8 +83,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-page {
-  background: $uni-bg-color;
-}
-</style>
+<style lang="scss" scoped></style>
