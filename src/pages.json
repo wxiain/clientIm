@@ -33,6 +33,12 @@
       }
     },
     {
+      "path": "pages/contact/searching/index",
+      "style": {
+        "navigationBarTitleText": "查找好友"
+      }
+    },
+    {
       "path": "pages/user/index/index",
       "style": {
         "navigationBarTitleText": "个人中心"
