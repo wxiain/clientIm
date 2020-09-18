@@ -2,18 +2,21 @@ import Vuex from "vuex";
 import Vue from "vue";
 import http from "@/util/request";
 import user from "./modules/user";
+import contact from "@/store/modules/contact";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     user,
+    contact,
   },
   state: {
     userInfo: {},
     token: "",
     isLogin: false,
     current: 0,
+    defaultAvatar: "http://chitchat.wxiain.com/images/defaultAvatar.jpg",
   },
   actions: {
     login({ commit }, params) {
