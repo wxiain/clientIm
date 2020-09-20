@@ -58,7 +58,9 @@ export default {
   },
   watch: {
     rData() {
-      this.init();
+      if (!this.loading) {
+        this.init();
+      }
     },
   },
   methods: {
@@ -67,7 +69,7 @@ export default {
       this.list = [];
       this.getList();
     },
-    getList(isPush = false) {
+    getList(isUnshift = false) {
       if (!this.loading) {
         this.loading = true;
         let params = Object.assign({}, this.rData, { page: this.page, page_size: this.page_size });
@@ -75,10 +77,11 @@ export default {
           .then((res) => {
             let { data } = res;
             this.loaded = data.length < this.page_size;
-            this.list = isPush ? [...data, ...this.list] : [...this.list, ...data];
+            this.list = isUnshift ? [...data, ...this.list] : [...this.list, ...data];
             this.$emit("data", this.list);
           })
           .catch((err) => {
+            this.clearList();
             console.log(err);
           })
           .finally(() => {
@@ -86,14 +89,18 @@ export default {
           });
       }
     },
+    clearList() {
+      this.list = [];
+      this.$emit("data", []);
+    },
     reachBottom() {
-      if (!this.loaded) {
+      if (!this.loaded && !this.loading) {
         this.page++;
         this.getList();
       }
     },
     reachTop() {
-      if (!this.loaded) {
+      if (!this.loaded && !this.loading) {
         this.page++;
         this.getList(true);
       }
@@ -107,4 +114,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss"></style>
