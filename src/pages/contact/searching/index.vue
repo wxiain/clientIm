@@ -48,7 +48,7 @@ export default {
   },
   onReachBottom() {
     this.$nextTick(() => {
-      this.$refs.list.reachBottom();
+      this.list.length && this.$refs.list.reachBottom();
     });
   },
 };
