@@ -1,5 +1,5 @@
 <template>
-  <view style="position: fixed; left: 0; bottom: 0;" class="u-p-20 w100">
+  <view class="u-p-20 w100" :class="[position]">
     <u-button
       @click="$emit('save')"
       :loading="loading"
@@ -61,8 +61,21 @@ export default {
       type: Boolean,
       default: true,
     },
+    position: {
+      type: String,
+      default: "bottom",
+    },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.bottom {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+.center {
+  transform: translateY(75%);
+}
+</style>

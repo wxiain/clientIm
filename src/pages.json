@@ -33,6 +33,12 @@
       }
     },
     {
+      "path": "pages/contact/detail/index"
+    },
+    {
+      "path": "pages/contact/detail/confirm"
+    },
+    {
       "path": "pages/contact/searching/index",
       "style": {
         "navigationBarTitleText": "查找好友"

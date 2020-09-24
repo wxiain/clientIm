@@ -13,7 +13,7 @@
     <u-line></u-line>
     <view class="u-m-t-20 bg-white" style="min-height: calc(100vh - 126rpx);">
       <data-list :request="getSearching" :r-data="params" @data="handlerData" ref="list">
-        <Item v-for="item of list" :key="item.id" :bean="item"></Item>
+        <Item v-for="item of list" :key="item.id" :bean="item" @click.native="handleDetail(item)"></Item>
       </data-list>
     </view>
   </view>
@@ -44,6 +44,11 @@ export default {
     },
     handlerData(list) {
       this.list = list;
+    },
+    handleDetail(item) {
+      uni.navigateTo({
+        url: "/pages/contact/detail/index?id=" + item.id,
+      });
     },
   },
   onReachBottom() {
