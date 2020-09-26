@@ -87,11 +87,12 @@ export default {
         .then((res) => {
           let data = res.data;
           this.userDetail = data;
-          let userData = JSON.parse(JSON.stringify(data));
-          userData.apply_id = data.id;
-          Reflect.deleteProperty(userData, "update_at");
-          Reflect.deleteProperty(userData, "id");
-          Reflect.deleteProperty(userData, "mobile");
+          let userData = {
+            apply_id: data.id,
+            avatar: data.avatar,
+            username: data.username,
+            status: "underReview",
+          };
           this.setUserDetail(userData);
           uni.setNavigationBarTitle({
             title: data.username,
