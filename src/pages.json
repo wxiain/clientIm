@@ -36,6 +36,12 @@
       "path": "pages/contact/detail/index"
     },
     {
+      "path": "pages/contact/applyList/index",
+      "style": {
+        "navigationBarTitleText": "好友申请"
+      }
+    },
+    {
       "path": "pages/contact/detail/confirm"
     },
     {

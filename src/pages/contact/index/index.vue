@@ -2,11 +2,12 @@
   <view class="page w100 w100vh u-p-t-20">
     <view class="u-m-b-20">
       <u-cell-group :border="false">
+        <u-cell-item title="新的朋友" :title-style="{ fontSize: '34rpx' }" @tap="handleSearching"></u-cell-item>
         <u-cell-item
-          title="新的朋友"
+          title="好友申请"
           :title-style="{ fontSize: '34rpx' }"
           :border-bottom="false"
-          @tap="handleSearching"
+          @tap="handleApply"
         ></u-cell-item>
         <!--<u-cell-item icon="photo" title="相册"></u-cell-item>-->
         <!--<u-cell-item icon="coupon" title="卡券"></u-cell-item>-->
@@ -30,6 +31,11 @@ export default {
     handleSearching() {
       uni.navigateTo({
         url: "/pages/contact/searching/index",
+      });
+    },
+    handleApply() {
+      uni.navigateTo({
+        url: "/pages/contact/applyList/index",
       });
     },
   },

@@ -12,8 +12,13 @@ export default {
       return http("/user/info", { userId: id });
     },
     sendApply({ commit }, params) {
-      console.log(params);
       return http("/friend/apply", params, true, "post");
+    },
+    getApplyList({ commit }) {
+      return http("/friend/apply/list", {}, true);
+    },
+    sendAgree({ commit }, { id, data }) {
+      return http("/friend/apply/agree/" + id, data, true, "put");
     },
   },
   mutations: {

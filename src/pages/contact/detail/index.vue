@@ -40,7 +40,7 @@
     <view class="u-m-t-20">
       <u-cell-group>
         <u-cell-item
-          title="添加"
+          :title="type === 'process' ? '操作' : '添加'"
           :arrow="false"
           :center="true"
           :title-style="cellButtonStyle"
@@ -48,6 +48,16 @@
         ></u-cell-item>
       </u-cell-group>
     </view>
+    <u-modal
+      v-model="show"
+      :content="content"
+      :mask-close-able="true"
+      :title="title"
+      :show-cancel-button="true"
+      cancel-text="拒绝"
+      @confirm="handleEvent"
+      @cancel="handleCancel"
+    ></u-modal>
   </view>
 </template>
 
@@ -66,17 +76,22 @@ export default {
         "text-align": "center",
         "font-size": "34rpx",
       },
+      type: "",
+      show: false,
+      content: "",
+      title: "同意申请",
     };
   },
-  onLoad({ id }) {
+  onLoad({ id, type = "" }) {
     this.id = id;
     this.getDetail();
+    this.type = type;
   },
   onUnLoad() {
     this.setUserDetail({});
   },
   methods: {
-    ...mapActions("contact", ["getContactDetail"]),
+    ...mapActions("contact", ["getContactDetail", "sendAgree"]),
     ...mapMutations("contact", ["setUserDetail"]),
     getDetail() {
       uni.showLoading({
@@ -92,6 +107,10 @@ export default {
             avatar: data.avatar,
             username: data.username,
             status: "underReview",
+            mobile: data.mobile,
+            gender: data.gender,
+            age: data.age,
+            nickname: data.nickName,
           };
           this.setUserDetail(userData);
           uni.setNavigationBarTitle({
@@ -105,7 +124,40 @@ export default {
           uni.hideLoading();
         });
     },
+    handleEvent(status = "agreement") {
+      uni.showLoading({
+        title: "加载中...",
+        mask: false,
+      });
+      this.sendAgree({ id: this.userDetail.id, data: { status } })
+        .then((res) => {
+          uni.showToast({
+            title: res.message,
+            mask: true,
+          });
+          setTimeout(() => {
+            uni.navigateBack();
+          }, 1500);
+        })
+        .catch((err) => {
+          uni.showToast({
+            title: err.message,
+            icon: "none",
+          });
+        })
+        .finally(() => {
+          uni.hideLoading();
+        });
+    },
+    handleCancel() {
+      this.handleEvent("reject");
+    },
     handleAdd() {
+      if (this.type === "process") {
+        this.show = true;
+        this.content = "确定同意" + this.userDetail.username + "的申请";
+        return;
+      }
       uni.navigateTo({
         url: "/pages/contact/detail/confirm?id=" + this.id,
       });

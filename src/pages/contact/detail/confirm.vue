@@ -39,6 +39,7 @@ export default {
         .catch((err) => {
           uni.showToast({
             title: err,
+            icon: "none",
           });
         })
         .finally(() => {
