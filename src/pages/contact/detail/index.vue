@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 export default {
   name: "contact-index",
   data() {
@@ -102,15 +102,16 @@ export default {
         .then((res) => {
           let data = res.data;
           this.userDetail = data;
+          let userInfo = this.userInfo;
           let userData = {
             apply_id: data.id,
-            avatar: data.avatar,
-            username: data.username,
+            avatar: userInfo.avatar,
+            username: userInfo.username,
             status: "underReview",
-            mobile: data.mobile,
-            gender: data.gender,
-            age: data.age,
-            nickname: data.nickName,
+            mobile: userInfo.mobile,
+            gender: userInfo.gender,
+            age: userInfo.age,
+            nickname: userInfo.nickName,
           };
           this.setUserDetail(userData);
           uni.setNavigationBarTitle({
@@ -129,7 +130,16 @@ export default {
         title: "加载中...",
         mask: false,
       });
-      this.sendAgree({ id: this.userDetail.id, data: { status } })
+      let keys = ["nickname", "address", "username", "gender", "age", "avatar", "email", "id"];
+      let userDetail = this.userDetail;
+      let userInfo = this.userInfo;
+      let user = {};
+      let apply = {};
+      for (let item of keys) {
+        user[item] = userInfo[item];
+        apply[item] = userDetail[item];
+      }
+      this.sendAgree({ id: this.id, data: { status, apply, user, relation_id: userDetail.id, apply_id: userInfo.id } })
         .then((res) => {
           uni.showToast({
             title: res.message,
@@ -162,6 +172,9 @@ export default {
         url: "/pages/contact/detail/confirm?id=" + this.id,
       });
     },
+  },
+  computed: {
+    ...mapState(["userInfo"]),
   },
 };
 </script>
