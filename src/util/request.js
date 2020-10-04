@@ -1,4 +1,3 @@
-let token = "";
 function goLogin() {
   token = "";
   let pages = getCurrentPages();
@@ -18,7 +17,7 @@ function goLogin() {
  * @returns {Promise<unknown>}
  */
 export default function (url, data, request = true, method = "get") {
-  token = token || uni.getStorageSync(process.env.VUE_APP_TOKEN_KEY) || "";
+  let token = uni.getStorageSync(process.env.VUE_APP_TOKEN_KEY) || "";
   method = method.toUpperCase();
   return new Promise((res, rej) => {
     if (!token && !request) {
