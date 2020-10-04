@@ -1,5 +1,4 @@
 function goLogin() {
-  token = "";
   let pages = getCurrentPages();
   let currentPages = pages[pages.length - 1].route;
   if ("pages/user/login/index" !== currentPages) {
