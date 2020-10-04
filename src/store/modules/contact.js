@@ -20,6 +20,9 @@ export default {
     sendAgree({ commit }, { id, data }) {
       return http("/friend/apply/agree/" + id, data, true, "put");
     },
+    getContactList({ commit }, params) {
+      return http("/friend/myList", params, true);
+    },
   },
   mutations: {
     setUserDetail(state, data) {
