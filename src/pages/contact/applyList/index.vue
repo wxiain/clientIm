@@ -26,7 +26,7 @@ export default {
     },
     handleGo(item) {
       uni.navigateTo({
-        url: "/pages/contact/detail/index?type=process&id=" + item.user_id,
+        url: "/pages/contact/detail/processApply?id=" + item.user_id,
       });
     },
   },

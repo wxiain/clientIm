@@ -15,6 +15,18 @@
       </u-cell-group>
     </view>
     <view>
+      <data-list @data="handleData" :request="getContactList" right-away>
+        <item
+          v-for="item of list"
+          :key="item.id"
+          :bean="item[userInfo.id !== item.user.id ? 'user' : 'apply']"
+          @click.native="
+            () => {
+              handleDetail(item[userInfo.id !== item.user.id ? 'user' : 'apply']);
+            }
+          "
+        ></item>
+      </data-list>
       <!--<u-cell-group :border="false">
         <u-cell-item title="新的朋友" :title-style="{ fontSize: '34rpx' }" :border-bottom="false"></u-cell-item>
         <u-cell-item icon="photo" title="相册"></u-cell-item>
@@ -26,11 +38,29 @@
 </template>
 
 <script>
+import dataList from "@/components/data-list";
+import item from "@/pages/contact/widgets/item";
+import { mapActions, mapState } from "vuex";
 export default {
+  name: "contact",
+  data() {
+    return {
+      list: [],
+    };
+  },
   methods: {
+    ...mapActions("contact", ["getContactList"]),
     handleSearching() {
       uni.navigateTo({
         url: "/pages/contact/searching/index",
+      });
+    },
+    handleData(list) {
+      this.list = list;
+    },
+    handleDetail(bean) {
+      uni.navigateTo({
+        url: "/pages/contact/detail/friendData?id=" + bean.id,
       });
     },
     handleApply() {
@@ -38,6 +68,13 @@ export default {
         url: "/pages/contact/applyList/index",
       });
     },
+  },
+  computed: {
+    ...mapState(["userInfo"]),
+  },
+  components: {
+    dataList,
+    item,
   },
 };
 </script>
