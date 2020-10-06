@@ -57,6 +57,9 @@
       }
     },
     {
+      "path": "pages/messages/message/index"
+    },
+    {
       "path": "pages/user/index/index",
       "style": {
         "navigationBarTitleText": "个人中心"
