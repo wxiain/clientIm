@@ -1,6 +1,6 @@
 <template>
   <div class="friendData">
-    <detail :id="id">
+    <detail :id="id" @data="handlerData">
       <u-cell-item
         title="发消息"
         :arrow="false"
@@ -25,14 +25,20 @@ export default {
         "text-align": "center",
         "font-size": "34rpx",
       },
+      userDetail: {},
     };
   },
   onLoad({ id }) {
     this.id = id;
   },
   methods: {
+    handlerData({ userDetail }) {
+      this.userDetail = userDetail;
+    },
     handleSendMessage() {
-      console.log(9999);
+      uni.redirectTo({
+        url: `/pages/messages/message/index?id=${this.$store.state.userInfo.id}&receive_id=${this.userDetail.id}`,
+      });
     },
   },
   components: {
