@@ -84,6 +84,10 @@ export default {
             age: userInfo.age,
             nickname: userInfo.nickName,
           };
+          /**
+           * userDetail 当前朋友资料
+           * userData 当前用户
+           */
           this.$emit("data", { userDetail: data, userData });
           uni.setNavigationBarTitle({
             title: data.username,
