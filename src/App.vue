@@ -3,9 +3,13 @@ import { mapActions, mapMutations } from "vuex";
 export default {
   onLaunch: function () {
     // 全局只触发一次
-    this.getUserInfo().catch((err) => {
-      this.removeToken();
-    });
+    this.getUserInfo()
+      .then((res) => {
+        this.socketInit();
+      })
+      .catch((err) => {
+        this.removeToken();
+      });
     // console.log("App Launch");
     // https://cdn.npm.taobao.org/dist/node-sass/v4.14.1/win32-x64-83_binding.node
   },
@@ -17,8 +21,14 @@ export default {
   },
   methods: {
     ...mapActions(["getUserInfo"]),
-    ...mapMutations(["removeToken"]),
+    ...mapActions("socket", ["socketInit"]),
+    ...mapMutations(["removeToken"])
   },
+  mounted() {
+    uni.onSocketMessage((data) => {
+      console.log(data);
+    });
+  }
 };
 </script>
 

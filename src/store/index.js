@@ -3,6 +3,7 @@ import Vue from "vue";
 import http from "@/util/request";
 import user from "./modules/user";
 import contact from "@/store/modules/contact";
+import socket from "@/store/modules/socket";
 
 Vue.use(Vuex);
 
@@ -10,13 +11,14 @@ export default new Vuex.Store({
   modules: {
     user,
     contact,
+    socket,
   },
   state: {
     userInfo: {},
     token: "",
     isLogin: false,
     current: 0,
-    defaultAvatar: "http://chitchat.wxiain.com/images/defaultAvatar.jpg",
+    defaultAvatar: "http://wxiain.com/imgs/wxia.jpg",
   },
   actions: {
     login({ commit }, params) {

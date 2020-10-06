@@ -79,6 +79,7 @@ export default {
   },
   methods: {
     ...mapActions(["login"]),
+    ...mapActions("socket", ["socketInit"]),
     ...mapMutations(["setCurrent"]),
     handleLogin() {
       this.$refs.form.validate((v) => {
@@ -86,6 +87,7 @@ export default {
           uni.showLoading({ title: "登录中...", mask: true });
           this.login(this.formBean)
             .then(() => {
+              this.socketInit();
               this.setCurrent(0);
               this.$refs.toast.show({
                 title: "登录成功",
