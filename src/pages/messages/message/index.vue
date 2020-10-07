@@ -60,18 +60,18 @@ export default {
   onLoad({ id, receive_id }) {
     this.id = id;
     this.receiveId = receive_id;
+    uni.setNavigationBarTitle({
+      title: this.userDetail.username
+    });
   },
   methods: {
     handleSend() {
-      let { id, username, nickname, avatar, gender } = this.userInfo;
       let data = {
-        send_id: id,
+        send_id: this.userInfo.id,
         receive_id: this.receiveId,
         message: this.messageValue,
-        username,
-        nickname,
-        avatar,
-        gender
+        user: this.userInfo,
+        receive: this.userDetail
       };
       uni.sendSocketMessage({
         data: JSON.stringify(data),
@@ -86,7 +86,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(["userInfo", "defaultAvatar"])
+    ...mapState(["userInfo", "defaultAvatar"]),
+    ...mapState("message", ["userDetail"])
   }
 };
 </script>

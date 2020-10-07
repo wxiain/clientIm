@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import detail from "@/pages/contact/widgets/detail";
 export default {
   name: "friendData",
@@ -23,27 +24,29 @@ export default {
         width: "100%",
         padding: 0,
         "text-align": "center",
-        "font-size": "34rpx",
+        "font-size": "34rpx"
       },
-      userDetail: {},
+      userDetail: {}
     };
   },
   onLoad({ id }) {
     this.id = id;
   },
   methods: {
+    ...mapMutations("message", ["setUserDetail"]),
     handlerData({ userDetail }) {
       this.userDetail = userDetail;
+      this.setUserDetail(userDetail);
     },
     handleSendMessage() {
       uni.redirectTo({
-        url: `/pages/messages/message/index?id=${this.$store.state.userInfo.id}&receive_id=${this.userDetail.id}`,
+        url: `/pages/messages/message/index?id=${this.$store.state.userInfo.id}&receive_id=${this.userDetail.id}`
       });
-    },
+    }
   },
   components: {
-    detail,
-  },
+    detail
+  }
 };
 </script>
 
