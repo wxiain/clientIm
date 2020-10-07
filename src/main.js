@@ -3,7 +3,7 @@ import App from "./App";
 import uView from "uview-ui";
 import store from "./store";
 
-import methods from "@/util/methods";
+import methods from "@/utils/methods";
 
 Vue.config.productionTip = false;
 
@@ -19,6 +19,6 @@ import "./uView";
 // import uButton from "uView-ui/components/u-button/u-button.vue";
 
 const app = new Vue({
-  ...App,
+  ...App
 });
 app.$mount();

@@ -1,9 +1,10 @@
 import Vuex from "vuex";
 import Vue from "vue";
-import http from "@/util/request";
+import http from "@/utils/request";
 import user from "./modules/user";
 import contact from "@/store/modules/contact";
 import socket from "@/store/modules/socket";
+import message from "@/store/modules/message";
 
 Vue.use(Vuex);
 
@@ -12,13 +13,14 @@ export default new Vuex.Store({
     user,
     contact,
     socket,
+    message
   },
   state: {
     userInfo: {},
     token: "",
     isLogin: false,
     current: 0,
-    defaultAvatar: "http://wxiain.com/imgs/wxia.jpg",
+    defaultAvatar: "http://wxiain.com/imgs/wxia.jpg"
   },
   actions: {
     login({ commit }, params) {
@@ -75,7 +77,7 @@ export default new Vuex.Store({
       commit("logout");
       commit("removeToken");
       func && func();
-    },
+    }
   },
   mutations: {
     setUserInfo(state, data) {
@@ -98,6 +100,6 @@ export default new Vuex.Store({
     logout(state) {
       state.userInfo = {};
       state.isLogin = false;
-    },
-  },
+    }
+  }
 });

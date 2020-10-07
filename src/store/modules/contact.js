@@ -1,8 +1,8 @@
-import http from "@/util/request";
+import http from "@/utils/request";
 export default {
   namespaced: true,
   state: {
-    userDetail: {},
+    userDetail: {}
   },
   actions: {
     getSearching({ commit }, params) {
@@ -22,11 +22,11 @@ export default {
     },
     getContactList({ commit }, params) {
       return http("/friend/myList", params, true);
-    },
+    }
   },
   mutations: {
     setUserDetail(state, data) {
       state.userDetail = data;
-    },
-  },
+    }
+  }
 };
